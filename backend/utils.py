@@ -7,8 +7,8 @@ from typing import Optional
 from jose import JWTError, jwt
 import os
 import math
-import models
-import database
+from . import models
+from . import database
 
 # Password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

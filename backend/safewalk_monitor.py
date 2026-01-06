@@ -1,8 +1,8 @@
 import time
 import threading
 from datetime import datetime, timezone
-import models
-from database import SessionLocal
+from . import models
+from .database import SessionLocal
 
 def monitor_safe_walk_sessions():
     """

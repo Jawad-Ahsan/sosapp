@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from datetime import datetime, timezone
 from typing import List
-import models, schemas, database, utils
-from socket_manager import sio
+from .. import models, schemas, database, utils
+from ..socket_manager import sio
 
 router = APIRouter(tags=["Chat"])
 

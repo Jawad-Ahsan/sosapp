@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from datetime import datetime, timezone, timedelta
 from typing import List
-import models, schemas, database, utils
+from .. import models, schemas, database, utils
 
 router = APIRouter(tags=["SafeWalk"])
 

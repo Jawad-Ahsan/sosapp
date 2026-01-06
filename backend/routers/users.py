@@ -3,9 +3,9 @@ from sqlalchemy.orm import Session
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 import shutil
-import models, schemas, database, utils
-from ocr_service import ocr_service
-from email_service import email_service
+from .. import models, schemas, database, utils
+from ..ocr_service import ocr_service
+from ..email_service import email_service
 
 router = APIRouter(tags=["Users"])
 

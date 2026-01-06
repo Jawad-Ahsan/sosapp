@@ -131,7 +131,7 @@ def process_transcription_background(alert_id: int, audio_path: str, db_session_
         db = db_session_factory()
         
         try:
-            from models import Alert
+            from .models import Alert
             alert = db.query(Alert).filter(Alert.id == alert_id).first()
             
             if not alert:
@@ -159,7 +159,7 @@ def process_transcription_background(alert_id: int, audio_path: str, db_session_
         except Exception as e:
             logger.error(f"Background transcription error for alert {alert_id}: {e}")
             try:
-                from models import Alert
+                from .models import Alert
                 alert = db.query(Alert).filter(Alert.id == alert_id).first()
                 if alert:
                     alert.transcription_status = 'failed'

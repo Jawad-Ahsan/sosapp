@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import desc
 from datetime import datetime, timezone
 from typing import List
-import models, schemas, database, utils
+from .. import models, schemas, database, utils
 
 router = APIRouter(tags=["Admin"])
 

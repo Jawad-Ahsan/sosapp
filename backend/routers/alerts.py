@@ -7,9 +7,9 @@ from pathlib import Path
 from typing import List
 import shutil
 import uuid
-import models, schemas, database, utils
-from transcription_service import start_transcription
-from socket_manager import sio
+from .. import models, schemas, database, utils
+from ..transcription_service import start_transcription
+from ..socket_manager import sio
 
 router = APIRouter(tags=["Alerts"])
 

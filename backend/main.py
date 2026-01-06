@@ -3,12 +3,10 @@ from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
 from dotenv import load_dotenv
-import models, database
-from routers import auth, users, alerts, chat, admin, safewalk
-import safewalk_monitor
-from routers import auth, users, alerts, chat, admin, safewalk
-import safewalk_monitor
-from socket_manager import sio
+from . import models, database
+from .routers import auth, users, alerts, chat, admin, safewalk
+from . import safewalk_monitor
+from .socket_manager import sio
 import socketio
 
 load_dotenv()
