@@ -13,15 +13,14 @@ class CNICOCRService:
         return cls._instance
     
     def __init__(self):
-        if CNICOCRService._reader is None:
-            print("Initializing EasyOCR reader (this may take a moment on first run)...")
-            # Initialize EasyOCR with English support
-            # Set gpu=True if you have CUDA-enabled GPU
-            CNICOCRService._reader = easyocr.Reader(['en'], gpu=False)
-            print("EasyOCR reader initialized successfully")
+        pass
     
     @property
     def reader(self):
+        if CNICOCRService._reader is None:
+            print("Initializing EasyOCR reader (lazy load)...")
+            CNICOCRService._reader = easyocr.Reader(['en'], gpu=False)
+            print("EasyOCR reader initialized successfully")
         return CNICOCRService._reader
     
     def extract_cnic_info(self, front_image_path: str, back_image_path: str) -> Dict:

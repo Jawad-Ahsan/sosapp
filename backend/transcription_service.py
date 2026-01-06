@@ -24,8 +24,8 @@ def get_whisper_model():
     """Lazy load Whisper model (small)"""
     global _whisper_model
     if _whisper_model is None:
-        logger.info("Loading Whisper 'small' model... (first time may take a while)")
-        _whisper_model = whisper.load_model("small")
+        logger.info("Loading Whisper 'tiny' model... (optimized for free tier)")
+        _whisper_model = whisper.load_model("tiny")
         logger.info("Whisper model loaded successfully")
     return _whisper_model
 
