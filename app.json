@@ -1,8 +1,10 @@
 {
   "expo": {
-    "name": "SOSApp",
-    "slug": "SOSApp",
-    "version": "1.0.0",
+    "name": "sosapp",
+    "slug": "sosapp",
+    "version": "2.0.0",
+    "owner": "jawadahsan",
+    "scheme": "sosapp",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -13,17 +15,46 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "This app needs your location to send emergency alerts to nearby officers.",
+        "NSLocationAlwaysUsageDescription": "This app needs your location to send emergency alerts to nearby officers."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.jawadahsan.sosapp",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION"
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDq0t6qxkPaOHNH3AYziX4EFeHXf-Qg0Uo"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-web-browser",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location to send emergency alerts."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "33ce8047-6927-4238-87ef-e2fc67802ec2"
+      }
     }
   }
 }
