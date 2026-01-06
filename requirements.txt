@@ -9,3 +9,7 @@ python-multipart
 python-socketio
 requests
 pydantic[email]
+easyocr
+openai-whisper
+spacy
+opencv-python-headless
