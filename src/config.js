@@ -1,3 +1,3 @@
-const API_URL = 'http://192.168.10.16:8000';
+const API_URL = 'https://sosapp-backend.onrender.com';
 
 export default API_URL;

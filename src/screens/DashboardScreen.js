@@ -16,7 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Audio } from 'expo-av';
 import * as Location from 'expo-location';
-import * as Location from 'expo-location';
+
 import { useNetInfo } from '@react-native-community/netinfo';
 import { saveToQueue, processQueue } from '../utils/offlineQueue';
 import { useSocket } from '../context/SocketContext';

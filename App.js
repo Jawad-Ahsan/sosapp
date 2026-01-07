@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SocketProvider } from './src/context/SocketContext';
+import AppNavigator from './src/navigation/AppNavigator';
 
 export default function App() {
   return (
