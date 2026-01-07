@@ -40,6 +40,39 @@ app = socketio.ASGIApp(sio, fastapi_app)
 @fastapi_app.on_event("startup")
 def startup_event():
     safewalk_monitor.start_monitor()
+    
+    # --- AUTO-CREATE DEFAULT ADMIN ---
+    try:
+        db = database.SessionLocal()
+        from . import utils
+        
+        # Check if admin exists
+        admin_cnic = "0000000000000"
+        admin = db.query(models.User).filter(models.User.cnic == admin_cnic).first()
+        
+        if not admin:
+            print("Creating Default Admin User...")
+            admin_user = models.User(
+                cnic=admin_cnic,
+                password_hash=utils.get_password_hash("admin123"),
+                user_type="admin",
+                approval_status="approved",
+                account_status="active",
+                profile_complete=True,
+                email_verified=True,
+                full_name="System Admin",
+                phone="00000000000"
+            )
+            db.add(admin_user)
+            db.commit()
+            print("Default Admin Created Successfully!")
+        else:
+            print("Default Admin already exists.")
+            
+        db.close()
+    except Exception as e:
+        print(f"Error creating default admin: {e}")
+    # ---------------------------------
 
 @fastapi_app.get("/")
 def read_root():

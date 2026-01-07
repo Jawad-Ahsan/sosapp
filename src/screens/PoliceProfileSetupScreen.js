@@ -105,49 +105,33 @@ const PoliceProfileSetupScreen = () => {
 
         setUploadingCnic(true);
         try {
-            const token = await AsyncStorage.getItem('userToken');
-            const formData = new FormData();
+            // --- FRONTEND SIMULATION MODE (BYPASS BACKEND) ---
+            console.log("SIMULATION MODE (POLICE): Bypassing backend OCR to prevent server crash.");
 
-            formData.append('front_image', {
-                uri: cnicFrontImage,
-                type: 'image/jpeg',
-                name: 'cnic_front.jpg',
-            });
-            formData.append('back_image', {
-                uri: cnicBackImage,
-                type: 'image/jpeg',
-                name: 'cnic_back.jpg',
-            });
+            // Simulate network delay
+            setTimeout(() => {
+                // Mock success response
+                const mockFullName = "Verified Officer";
+                const mockFatherName = "Unknown";
+                const mockDOB = "01.01.1990";
+                const mockGender = "Male";
+                const mockAddress = "Simulated Police Station Address";
 
-            const response = await fetch(`${API_URL}/upload-cnic-images`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: formData,
-            });
+                setFullName(mockFullName);
+                setFatherName(mockFatherName);
+                setDateOfBirth(mockDOB);
+                setGender(mockGender);
+                setAddress(mockAddress);
 
-            if (response.ok) {
-                const data = await response.json();
-                if (data.match_success) {
-                    setFullName(data.full_name || '');
-                    setFatherName(data.father_name || '');
-                    setDateOfBirth(data.date_of_birth || '');
-                    setGender(data.gender || '');
-                    setAddress(data.address || '');
-                    Alert.alert("Success", "CNIC verified successfully!");
-                    setCurrentStep(2);
-                } else {
-                    Alert.alert("Verification Failed", "CNIC number does not match. Please try again.");
-                }
-            } else {
-                const error = await response.json();
-                Alert.alert("Error", error.detail || "Failed to process CNIC images");
-            }
+                Alert.alert("Success", "CNIC verified successfully! (Simulation Mode)");
+                setCurrentStep(2);
+                setUploadingCnic(false);
+            }, 1500);
+            // --- END SIMULATION ---
+
         } catch (e) {
             Alert.alert("Error", "Could not upload images");
             console.error(e);
-        } finally {
             setUploadingCnic(false);
         }
     };

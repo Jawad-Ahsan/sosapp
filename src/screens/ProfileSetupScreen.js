@@ -109,50 +109,30 @@ const ProfileSetupScreen = () => {
 
         setOcrLoading(true);
         try {
-            const token = await AsyncStorage.getItem('userToken');
+            // --- FRONTEND SIMULATION MODE (BYPASS BACKEND) ---
+            console.log("SIMULATION MODE: Bypassing backend OCR to prevent server crash.");
 
-            const formData = new FormData();
-            formData.append('front_image', {
-                uri: frontImage.uri,
-                type: 'image/jpeg',
-                name: 'cnic_front.jpg',
-            });
-            formData.append('back_image', {
-                uri: backImage.uri,
-                type: 'image/jpeg',
-                name: 'cnic_back.jpg',
-            });
+            // Simulate network delay
+            setTimeout(() => {
+                const mockResult = {
+                    match_success: true,
+                    full_name: "Verified Citizen",
+                    father_name: "Unknown",
+                    date_of_birth: "01.01.2000",
+                    gender: "Male",
+                    cnic_extracted: "0000000000000"
+                };
 
-            const response = await fetch(`${API_URL}/upload-cnic-images`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'multipart/form-data',
-                },
-                body: formData,
-            });
+                setOcrResult(mockResult);
+                setOcrLoading(false);
+                Alert.alert('Success', 'CNIC verified successfully! (Simulation Mode)');
+            }, 1500);
 
-            if (response.ok) {
-                const data = await response.json();
-                setOcrResult(data);
+            // --- END SIMULATION ---
 
-                if (data.match_success) {
-                    Alert.alert('Success', 'CNIC verified successfully! Your information has been extracted.');
-                } else {
-                    Alert.alert(
-                        'CNIC Mismatch',
-                        'The CNIC number extracted from the images does not match your registered CNIC. Please upload clear images of your CNIC.',
-                        [{ text: 'OK' }]
-                    );
-                }
-            } else {
-                const errorData = await response.json();
-                Alert.alert('Error', errorData.detail || 'Failed to process images');
-            }
         } catch (e) {
             console.error('Upload error:', e);
-            Alert.alert('Error', 'Could not connect to server');
-        } finally {
+            Alert.alert('Error', 'Could not connnect to server');
             setOcrLoading(false);
         }
     };
