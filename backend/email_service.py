@@ -11,7 +11,7 @@ load_dotenv()
 class EmailService:
     def __init__(self):
         self.smtp_host = os.getenv('SMTP_HOST', 'smtp.gmail.com')
-        self.smtp_port = int(os.getenv('SMTP_PORT', 587))
+        self.smtp_port = int(os.getenv('SMTP_PORT', 465))
         self.smtp_user = os.getenv('SMTP_USER')
         self.smtp_password = os.getenv('SMTP_PASSWORD')
         self.from_email = os.getenv('FROM_EMAIL', self.smtp_user)
@@ -74,8 +74,9 @@ If you did not request this, please ignore this email.
         
         try:
             print(f"Connecting to SMTP server: {self.smtp_host}:{self.smtp_port}")
-            with smtplib.SMTP(self.smtp_host, self.smtp_port) as server:
-                server.starttls()
+            # Use SMTP_SSL for port 465 (Implicit SSL)
+            with smtplib.SMTP_SSL(self.smtp_host, self.smtp_port) as server:
+                # server.starttls()  # NOT needed for SMTP_SSL
                 print(f"Logging in as: {self.smtp_user}")
                 server.login(self.smtp_user, self.smtp_password)
                 server.send_message(msg)
